@@ -1,0 +1,17 @@
+---
+description: "tt_llk: project overlay (landmarks + constraints)"
+alwaysApply: true
+---
+
+## Landmarks (start here)
+
+- `README.md`, `CONTRIBUTING.md`
+- `docs/llk/` — LLK documentation
+- `pyproject.toml` / `package.json` (if present)
+- C++/tests: `tests/`, `tt_llk_blackhole/`, `tt_llk_quasar/`
+
+## Constraints
+
+- Do not refactor or edit non-Cursor agent config files unless explicitly requested.
+- Prefer one-click runnable flows via `.vscode/launch.json` / `.vscode/tasks.json` when introducing new workflows.
+- Keep changes small and avoid broad churn across the repo.

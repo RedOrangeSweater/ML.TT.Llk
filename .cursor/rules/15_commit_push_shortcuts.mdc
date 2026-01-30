@@ -1,0 +1,28 @@
+---
+description: "Core: interpret commit/push requests as actions"
+alwaysApply: true
+---
+
+## Git shortcuts (commit/push by request)
+
+When the user says variants of **“коммит” / “закоммить” / “commit”** they are asking the agent to perform the git commit workflow (not just explain commands).
+
+When the user says **“пуш” / “push”** the user is explicitly requesting a push.
+
+### Required behavior
+
+- Follow the repo **Atomic git workflow**: split unrelated work into separate commits.
+- Run safety inspection before committing:
+  - `git status`
+  - `git diff` and `git diff --staged`
+  - `git log` (to match commit message style)
+- Stage **only** files relevant to the requested change.
+- Use a commit message consistent with recent history.
+- Never push unless the user explicitly asked to push.
+- If user asked “commit and push”, push after successful commit(s).
+
+### Commit failed due to pre-commit
+
+- **pre-commit** often auto-fixes simple issues (e.g. `trailing-whitespace`, `end-of-file-fixer`). Linters like **mypy** or **ruff** typically only report, they do not auto-fix.
+- If the commit was aborted by pre-commit: run `pre-commit run --all-files` (or simply run `git commit` again so hooks run), then stage any modified files, and commit (and push) again. Do not treat a single pre-commit failure as "done"; retry after fixes are applied.
+
