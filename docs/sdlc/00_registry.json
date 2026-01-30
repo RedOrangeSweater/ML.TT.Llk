@@ -1,0 +1,14 @@
+{
+  "registryId": "tt-llk.sdlc-processes",
+  "version": "0.1.0",
+  "processes": [
+    {
+      "sdlcId": "sdlc.main",
+      "slug": "main",
+      "path": "docs/sdlc/00_Main/",
+      "goal": "Основной SDLC tt_llk: статус, BA, архитектура, спек, QA.",
+      "goalShort": "Основной SDLC tt_llk (00_Main).",
+      "domainTags": ["llk", "tt_llk", "kernels", "status", "ba", "architecture", "specs", "qa"]
+    }
+  ]
+}
