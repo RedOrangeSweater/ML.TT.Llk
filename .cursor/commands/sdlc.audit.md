@@ -13,7 +13,7 @@
 
 ### Чеклист (по умолчанию)
 
-- SoT + start here: `docs/README.md` → tt-lang `docs/sdlc/02_llk/00_Status/` (SDLC tt_llk в tt-lang).
+- SoT + start here: `docs/README.md` → `docs/sdlc/00_Main/00_Status/00_projects_graph.md`.
 - Статус: `00_projects_graph.md`, `01_Kanban.md` — валидны, без битых путей.
 - Run configs: доки «как запускать» ↔ `.vscode/{launch.json,tasks.json}`.
 

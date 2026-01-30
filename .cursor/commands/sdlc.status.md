@@ -9,7 +9,7 @@
 ### Источники
 
 1. SoT + start here: `docs/README.md`.
-2. Статус: tt-lang `docs/sdlc/02_llk/00_Status/` (SDLC tt_llk в tt-lang); общий статус tt-metal: tt-lang `docs/sdlc/01_tt_metal/00_Status/`.
+2. Статус: `docs/sdlc/00_Main/00_Status/00_projects_graph.md`, `01_Kanban.md`.
 3. Контекст: свежие `docs/06_Development/TASK_*.md`.
 4. При необходимости: `docs/03_BA/*`, `docs/01_Architecture/*`.
 
@@ -21,7 +21,7 @@
 - **Status snapshot**: Now, Next, Blockers, Risks.
 - **Top priorities**: 3 пункта.
 - **Where to put new info**: Idea → `docs/sdlc/01_GameIdeas/inbox/` (/ttl-idea); Bug → `02_Problems_Log.md`; Execution → `TASK_*`.
-- **Consistency hint**: при расхождении — обновить tt-lang `docs/sdlc/02_llk/00_Status/*` и/или `/sdlc.audit`.
+- **Consistency hint**: при расхождении — обновить `docs/sdlc/00_Main/00_Status/*` и/или `/sdlc.audit`.
 
 ### Constraints
 

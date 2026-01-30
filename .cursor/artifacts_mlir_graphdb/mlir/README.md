@@ -1,6 +1,6 @@
 # Реестр MLIR-слоёв и трансформаций (cursorrules)
 
-Канонический **SoT** — KG (GraphDB) + MLIR intent/effect. Текст генерируется только на последнем шаге (LLM из финального MLIR). Pipeline doc: репо tt-lang, `docs/sdlc/01_tt_metal/02_Architecture/00_Doc_MLIR_GraphDB_Pipeline.md`. См. также `Artifacts/graphdb/`.
+Канонический **SoT** — KG (GraphDB) + MLIR intent/effect. Текст генерируется только на последнем шаге (LLM из финального MLIR). См. [00_Doc_MLIR_GraphDB_Pipeline.md](../00_Doc_MLIR_GraphDB_Pipeline.md) и `Artifacts/graphdb/`.
 
 **Структура**: по путям видно этап → диалект → трансформация.
 
