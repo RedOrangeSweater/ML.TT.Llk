@@ -5,9 +5,9 @@
     {
       "sdlcId": "sdlc.main",
       "slug": "main",
-      "path": "docs/sdlc/00_Main/",
-      "goal": "Основной SDLC tt_llk: статус, BA, архитектура, спек, QA.",
-      "goalShort": "Основной SDLC tt_llk (00_Main).",
+      "path": "tt-lang:docs/sdlc/02_llk/",
+      "goal": "SDLC tt_llk ведётся в репо tt-lang: статус, BA, архитектура, спек, QA.",
+      "goalShort": "SDLC tt_llk (canonical in tt-lang).",
       "domainTags": ["llk", "tt_llk", "kernels", "status", "ba", "architecture", "specs", "qa"]
     }
   ]
