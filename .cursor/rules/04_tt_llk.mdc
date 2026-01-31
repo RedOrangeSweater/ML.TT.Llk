@@ -12,6 +12,7 @@ alwaysApply: true
 
 ## Constraints
 
+- **SDLC and process documentation** for tt_llk is maintained in the tt-lang repo: `docs/sdlc/02_llk/`. Process registry: tt-lang `docs/sdlc/00_registry.json`. In this repo (tt_llk), `docs/sdlc/` contains only a stub pointing to tt-lang.
 - Do not refactor or edit non-Cursor agent config files unless explicitly requested.
 - Prefer one-click runnable flows via `.vscode/launch.json` / `.vscode/tasks.json` when introducing new workflows.
 - Keep changes small and avoid broad churn across the repo.
