@@ -3,7 +3,7 @@
 
 import inspect
 from itertools import product
-from typing import Iterator, List, Tuple
+from typing import Any, Iterator, List, Tuple
 
 import pytest
 from typing_extensions import deprecated
@@ -127,7 +127,7 @@ class ResolutionError(Exception):
         super().__init__(f"Constraint function raised an exception: {error}")
 
 
-def _param_dependencies(parameter: str, argument: any) -> List[str]:
+def _param_dependencies(parameter: str, argument: Any) -> List[str]:
     """Extract parameter names from a callable using introspection."""
     if callable(argument):
         dependencies = inspect.signature(argument).parameters.keys()
@@ -151,7 +151,7 @@ def _verify_dependency_map(dependency_map: dict[str, list[str]]) -> None:
         raise UnknownDependenciesError(missing)
 
 
-def _compute_dependency_map(**params: any) -> dict[str, list[str]]:
+def _compute_dependency_map(**params: Any) -> dict[str, list[str]]:
     dependency_map = {
         param: _param_dependencies(param, value) for param, value in params.items()
     }
@@ -161,7 +161,7 @@ def _compute_dependency_map(**params: any) -> dict[str, list[str]]:
     return dependency_map
 
 
-def _compute_dependency_matrix(**params: any) -> list[list[int]]:
+def _compute_dependency_matrix(**params: Any) -> list[list[int]]:
     param_idx = {param: idx for idx, param in enumerate(params.keys())}
     dependency_map = _compute_dependency_map(**params)
 
@@ -224,7 +224,7 @@ def _compute_resolution_order(
     return topological
 
 
-def _params_solve_dependencies(**kwargs: any) -> List[Tuple]:
+def _params_solve_dependencies(**kwargs: Any) -> List[Tuple]:
     """
     Compute constrained cartesian product by resolving parameter dependencies.
 
@@ -240,7 +240,7 @@ def _params_solve_dependencies(**kwargs: any) -> List[Tuple]:
     dependency_matrix = _compute_dependency_matrix(**kwargs)
     resolution_order = _compute_resolution_order(parameters, dependency_matrix)
 
-    def _resolve_param_values(resolved: list[any], parameter: int) -> list:
+    def _resolve_param_values(resolved: list[Any], parameter: int) -> list:
         """Get possible values for a parameter given resolved dependencies."""
         argument = arguments[parameter]
 
@@ -264,7 +264,7 @@ def _params_solve_dependencies(**kwargs: any) -> List[Tuple]:
 
         return [argument]
 
-    def _solve_recursive(resolved: list[any], resolution_index: int) -> Iterator[Tuple]:
+    def _solve_recursive(resolved: list[Any], resolution_index: int) -> Iterator[Tuple]:
         if resolution_index >= len(resolution_order):
             yield tuple(resolved)
             return
@@ -281,7 +281,7 @@ def _params_solve_dependencies(**kwargs: any) -> List[Tuple]:
     return list(_solve_recursive(resolved, 0))
 
 
-def parametrize(**kwargs: any):
+def parametrize(**kwargs: Any):
     parameters = tuple(kwargs.keys())
     parameters_string = ",".join(parameters)
     parameter_values = _params_solve_dependencies(**kwargs)
@@ -312,7 +312,7 @@ def parametrize(**kwargs: any):
 
 
 @deprecated("Try using parametrize or python inbuilt product function")
-def generate_params(**kwargs: any) -> List[tuple]:
+def generate_params(**kwargs: Any) -> List[tuple]:
     wrap_list = lambda x: [x] if not isinstance(x, list) else x
     arguments = [wrap_list(value) for value in kwargs.values() if value is not None]
 

@@ -51,7 +51,7 @@ class StimuliConfig:
         tile_count_C: int = None,
         num_faces: int = 4,
         face_r_dim: int = 16,
-        tile_dimensions: list[int] = [32, 32],
+        tile_dimensions: list[int] | None = None,
         sfpu=False,
         write_full_tiles: bool = False,
     ):
@@ -70,7 +70,7 @@ class StimuliConfig:
         self.tile_count_res = tile_count_res
         self.num_faces = num_faces
         self.face_r_dim = face_r_dim
-        self.tile_dimensions = tile_dimensions
+        self.tile_dimensions = tile_dimensions if tile_dimensions is not None else [32, 32]
         self.sfpu = sfpu
         self.write_full_tiles = write_full_tiles
 

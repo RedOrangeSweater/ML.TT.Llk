@@ -34,7 +34,7 @@ class ChipArchitecture(Enum):
         return enum_value
 
 
-# Cache for chip architecture
+# Process-level cache for chip architecture; used by get_chip_architecture().
 _cached_chip_architecture = None
 
 
