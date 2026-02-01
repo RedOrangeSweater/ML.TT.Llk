@@ -4,7 +4,7 @@
 
 import os
 from pathlib import Path
-from typing import Any, Dict, Type
+from typing import Any, Type
 
 import yaml
 from helpers.format_config import DataFormat
@@ -36,59 +36,60 @@ from helpers.llk_params import (
 )
 
 from .fuser_config import FuserConfig, GlobalConfig
+from .fuser_yaml_models import FuserYamlConfig
 from .llk_params import DestAccumulation, MathFidelity
 
 FUSER_CONFIG_DIR = (
     Path(os.environ.get("LLK_HOME")) / "tests" / "python_tests" / "fuser_config"
 )
 
-UNPACKER_MAP: Dict[str, Type[Unpacker]] = {
+UNPACKER_MAP: dict[str, Type[Unpacker]] = {
     "UnpackerA": UnpackerA,
     "UnpackerAB": UnpackerAB,
     "UnpackerTilizeA": UnpackerTilizeA,
     "MatmulUnpacker": MatmulUnpacker,
 }
 
-PACKER_MAP: Dict[str, Type[Packer]] = {
+PACKER_MAP: dict[str, Type[Packer]] = {
     "Packer": Packer,
 }
 
-DATA_FORMAT_MAP: Dict[str, DataFormat] = {
+DATA_FORMAT_MAP: dict[str, DataFormat] = {
     "Float16_b": DataFormat.Float16_b,
     "Float16": DataFormat.Float16,
     "Float32": DataFormat.Float32,
     "Bfp8_b": DataFormat.Bfp8_b,
 }
 
-MATH_FIDELITY_MAP: Dict[str, MathFidelity] = {
+MATH_FIDELITY_MAP: dict[str, MathFidelity] = {
     "LoFi": MathFidelity.LoFi,
     "HiFi2": MathFidelity.HiFi2,
     "HiFi3": MathFidelity.HiFi3,
     "HiFi4": MathFidelity.HiFi4,
 }
 
-DEST_ACCUMULATION_MAP: Dict[str, DestAccumulation] = {
+DEST_ACCUMULATION_MAP: dict[str, DestAccumulation] = {
     "Yes": DestAccumulation.Yes,
     "No": DestAccumulation.No,
 }
 
-DEST_SYNC_MAP: Dict[str, DestSync] = {
+DEST_SYNC_MAP: dict[str, DestSync] = {
     "Full": DestSync.Full,
     "Half": DestSync.Half,
 }
 
-TRANSPOSE_MAP: Dict[str, Transpose] = {
+TRANSPOSE_MAP: dict[str, Transpose] = {
     "Yes": Transpose.Yes,
     "No": Transpose.No,
 }
 
-FPU_OPERATION_MAP: Dict[str, MathOperation] = {
+FPU_OPERATION_MAP: dict[str, MathOperation] = {
     "Elwadd": MathOperation.Elwadd,
     "Elwmul": MathOperation.Elwmul,
     "Elwsub": MathOperation.Elwsub,
 }
 
-SFPU_UNARY_OPERATION_MAP: Dict[str, MathOperation] = {
+SFPU_UNARY_OPERATION_MAP: dict[str, MathOperation] = {
     "Abs": MathOperation.Abs,
     "Acosh": MathOperation.Acosh,
     "Asinh": MathOperation.Asinh,
@@ -115,7 +116,7 @@ SFPU_UNARY_OPERATION_MAP: Dict[str, MathOperation] = {
     "Threshold": MathOperation.Threshold,
 }
 
-SFPU_BINARY_OPERATION_MAP: Dict[str, MathOperation] = {
+SFPU_BINARY_OPERATION_MAP: dict[str, MathOperation] = {
     "SfpuElwadd": MathOperation.SfpuElwadd,
     "SfpuElwmul": MathOperation.SfpuElwmul,
     "SfpuElwsub": MathOperation.SfpuElwsub,
@@ -126,32 +127,32 @@ SFPU_BINARY_OPERATION_MAP: Dict[str, MathOperation] = {
     "SfpuAddTopRow": MathOperation.SfpuAddTopRow,
 }
 
-SFPU_TERNARY_OPERATION_MAP: Dict[str, MathOperation] = {
+SFPU_TERNARY_OPERATION_MAP: dict[str, MathOperation] = {
     "SfpuWhere": MathOperation.SfpuWhere,
     "TTNNWhere": MathOperation.TTNNWhere,
 }
 
-REDUCE_OPERATION_MAP: Dict[str, MathOperation] = {
+REDUCE_OPERATION_MAP: dict[str, MathOperation] = {
     "ReduceColumn": MathOperation.ReduceColumn,
     "ReduceRow": MathOperation.ReduceRow,
     "ReduceScalar": MathOperation.ReduceScalar,
 }
 
-REDUCE_POOL_MAP: Dict[str, ReducePool] = {
+REDUCE_POOL_MAP: dict[str, ReducePool] = {
     "Sum": ReducePool.Sum,
     "Min": ReducePool.Min,
     "Max": ReducePool.Max,
     "Average": ReducePool.Average,
 }
 
-APPROXIMATION_MODE_MAP: Dict[str, ApproximationMode] = {
+APPROXIMATION_MODE_MAP: dict[str, ApproximationMode] = {
     "Yes": ApproximationMode.Yes,
     "No": ApproximationMode.No,
 }
 
 
 def parse_math_operation(
-    math_config: Dict[str, Any], operands: OperandRegistry
+    math_config: dict[str, Any], operands: OperandRegistry
 ) -> Math:
     fpu_type = math_config.get("fpu", "Datacopy")
 
@@ -223,7 +224,7 @@ def parse_math_operation(
 
 
 def parse_operation(
-    op_config: Dict[str, Any], operands: OperandRegistry
+    op_config: dict[str, Any], operands: OperandRegistry
 ) -> FusedOperation:
     input_format_name = op_config.get("input_format", "Float16_b")
     input_format = DATA_FORMAT_MAP.get(input_format_name)
@@ -304,17 +305,17 @@ def load_fuser_config(test_name: str) -> FuserConfig:
         raise FileNotFoundError(f"YAML file does not exist: {yaml_path}")
 
     with open(yaml_file, "r") as f:
-        config = yaml.safe_load(f)
+        raw_config = yaml.safe_load(f)
 
-    dest_acc = DEST_ACCUMULATION_MAP[config.get("dest_acc", "No")]
-    profiler_enabled = config.get("profiler_enabled", False)
-    loop_factor = config.get("loop_factor", 16)
+    validated = FuserYamlConfig.model_validate(raw_config)
+    dest_acc = DEST_ACCUMULATION_MAP[validated.dest_acc]
+    profiler_enabled = validated.profiler_enabled
+    loop_factor = validated.loop_factor
 
     operands = OperandRegistry()
-
     pipeline = []
-    for op_config in config.get("operations", []):
-        operation = parse_operation(op_config, operands)
+    for op_yaml in validated.operations:
+        operation = parse_operation(op_yaml.model_dump(), operands)
         pipeline.append(operation)
 
     fuser_config = FuserConfig(
