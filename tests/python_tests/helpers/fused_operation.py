@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from dataclasses import dataclass
-from typing import Tuple, Type
+from typing import Type
 
 import torch
 
@@ -57,7 +57,7 @@ class FusedOperation:
     dest_sync: DestSync = DestSync.Half
     dst_index: int = 0
     srca_reuse_count: int = 4
-    output_pack_dims: Tuple[int, int] = None
+    output_pack_dims: tuple[int, int] | None = None
 
     def __post_init__(self):
         mapping = self.operand_mapping

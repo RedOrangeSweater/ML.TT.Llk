@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from dataclasses import dataclass
-from typing import Optional, Tuple
 
 import torch
 from helpers.llk_params import DataFormat, format_dict
@@ -14,17 +13,17 @@ from helpers.tilize_untilize import tilize_block
 @dataclass
 class Operand:
     name: str
-    dimensions: Optional[Tuple[int, int]] = None
-    data_format: Optional[DataFormat] = None
-    l1_address: Optional[int] = None
+    dimensions: tuple[int, int] | None = None
+    data_format: DataFormat | None = None
+    l1_address: int | None = None
     is_output: bool = False
     sfpu: bool = True
-    pack_dims: Optional[Tuple[int, int]] = None
-    _data: Optional[torch.Tensor] = None
-    _raw_data: Optional[torch.Tensor] = None
-    _master_golden: Optional[torch.Tensor] = None
-    l1_golden: Optional[torch.Tensor] = None
-    _tile_count: Optional[int] = None
+    pack_dims: tuple[int, int] | None = None
+    _data: torch.Tensor | None = None
+    _raw_data: torch.Tensor | None = None
+    _master_golden: torch.Tensor | None = None
+    l1_golden: torch.Tensor | None = None
+    _tile_count: int | None = None
 
     def __post_init__(self):
         if not self.is_output and (self.dimensions is None or self.data_format is None):
@@ -96,7 +95,7 @@ class Operand:
         self._data = tilized_data
 
     @property
-    def data(self) -> Optional[torch.Tensor]:
+    def data(self) -> torch.Tensor | None:
         if self._data is None and self.is_input():
             self.generate_data()
         return self._data
@@ -106,19 +105,19 @@ class Operand:
         self._data = value
 
     @property
-    def raw_data(self) -> Optional[torch.Tensor]:
+    def raw_data(self) -> torch.Tensor | None:
         if self._raw_data is None and self.is_input():
             self.generate_data()
         return self._raw_data
 
     @property
-    def master_golden(self) -> Optional[torch.Tensor]:
+    def master_golden(self) -> torch.Tensor | None:
         if self.is_input():
             return self.raw_data
         return self._master_golden
 
     @property
-    def tile_count(self) -> Optional[int]:
+    def tile_count(self) -> int | None:
         if self._tile_count is None:
             if self.dimensions is not None:
                 self._tile_count = (self.dimensions[0] // 32) * (
@@ -160,7 +159,7 @@ class OperandMapping:
 
     def resolve_output_dimensions(
         self, operand_registry: "OperandRegistry"
-    ) -> Tuple[int, int]:
+    ) -> tuple[int, int]:
         src_a_op = operand_registry.get(self.src_a)
         src_b_op = operand_registry.get(self.src_b)
 
@@ -181,7 +180,7 @@ class OperandRegistry:
     def add_input(
         self,
         name: str,
-        dimensions: Tuple[int, int, int, int],
+        dimensions: tuple[int, int],
         data_format: DataFormat,
         address: int = None,
         sfpu: bool = True,
@@ -204,8 +203,8 @@ class OperandRegistry:
         self,
         name: str,
         address: int = None,
-        dimensions: Optional[Tuple[int, int]] = None,
-        data_format: Optional[DataFormat] = None,
+        dimensions: tuple[int, int] | None = None,
+        data_format: DataFormat | None = None,
     ) -> Operand:
         if name in self.operands:
             raise ValueError(f"Output operand '{name}' already exists")
@@ -241,15 +240,19 @@ class OperandRegistry:
         src_a: str,
         src_b: str,
         output: str,
-        src_a_dims: Tuple[int, int] = [32, 32],
-        src_b_dims: Tuple[int, int] = [32, 32],
+        src_a_dims: tuple[int, int] | None = None,
+        src_b_dims: tuple[int, int] | None = None,
         input_format: DataFormat = DataFormat.Float16_b,
         output_format: DataFormat = DataFormat.Float16_b,
-        src_a_tensor: torch.Tensor = None,
-        src_b_tensor: torch.Tensor = None,
-        src_a_const_value: Optional[float] = None,
-        src_b_const_value: Optional[float] = None,
+        src_a_tensor: torch.Tensor | None = None,
+        src_b_tensor: torch.Tensor | None = None,
+        src_a_const_value: float | None = None,
+        src_b_const_value: float | None = None,
     ) -> OperandMapping:
+        if src_a_dims is None:
+            src_a_dims = (32, 32)
+        if src_b_dims is None:
+            src_b_dims = (32, 32)
         if src_a not in self.operands:
             self.add_input(src_a, dimensions=src_a_dims, data_format=input_format)
 

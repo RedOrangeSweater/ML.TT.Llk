@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from typing import TYPE_CHECKING, List, Tuple
+from typing import TYPE_CHECKING
 
 import torch
 
@@ -145,7 +145,7 @@ class Unpacker:
 
         return code
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return ["perf.h"]
 
     def golden(
@@ -154,12 +154,12 @@ class Unpacker:
         tensor_b: torch.Tensor,
         operation: "FusedOperation",
         config: "GlobalConfig",
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         return tensor_a, tensor_b
 
 
 class MatmulUnpacker(Unpacker):
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_unpack_AB_matmul.h",
             "llk_unpack_common.h",
@@ -179,7 +179,7 @@ class MatmulUnpacker(Unpacker):
         tensor_b: torch.Tensor,
         operation: "FusedOperation",
         config: "GlobalConfig",
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         t_matrix = get_golden_generator(TransposeGolden)
 
         if operation.unpack_transpose_faces == Transpose.Yes:
@@ -243,7 +243,7 @@ class MatmulUnpacker(Unpacker):
 
 
 class UnpackerAB(Unpacker):
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_unpack_AB.h",
             "llk_unpack_common.h",
@@ -256,7 +256,7 @@ class UnpackerAB(Unpacker):
         tensor_b: torch.Tensor,
         operation: "FusedOperation",
         config: "GlobalConfig",
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         t_matrix = get_golden_generator(TransposeGolden)
 
         if operation.unpack_transpose_faces == Transpose.Yes:
@@ -324,7 +324,7 @@ class UnpackerAB(Unpacker):
 
 
 class UnpackerA(Unpacker):
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_unpack_A.h",
             "llk_unpack_common.h",
@@ -337,7 +337,7 @@ class UnpackerA(Unpacker):
         tensor_b: torch.Tensor,
         operation: "FusedOperation",
         config: "GlobalConfig",
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         t_matrix = get_golden_generator(TransposeGolden)
 
         if operation.unpack_transpose_faces == Transpose.Yes:
@@ -398,7 +398,7 @@ class UnpackerA(Unpacker):
 
 
 class UnpackerTilizeA(Unpacker):
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_unpack_common.h",
             "llk_unpack_tilize.h",
@@ -416,7 +416,7 @@ class UnpackerTilizeA(Unpacker):
         tensor_b: torch.Tensor,
         operation: "FusedOperation",
         config: "GlobalConfig",
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         tilized_a = tilize_block(
             tensor_a,
             operation.src_a.dimensions,

@@ -5,7 +5,6 @@
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict
 
 from .fuser_config import FuserConfig
 
@@ -129,7 +128,7 @@ class FusedKernelGenerator:
         self.math_gen = MathKernelGenerator(self.config)
         self.pack_gen = PackKernelGenerator(self.config)
 
-    def generate_all(self) -> Dict[str, str]:
+    def generate_all(self) -> dict[str, str]:
         return {
             "unpack": self.unpack_gen.generate(),
             "math": self.math_gen.generate(),

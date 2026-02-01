@@ -5,7 +5,7 @@
 Helper functions for dimension-related calculations in matrix operations and Matmul test configurations for matmul test sweeping.
 """
 from dataclasses import dataclass
-from typing import Iterable, List, NamedTuple, Tuple
+from typing import Iterable, NamedTuple
 
 from helpers.format_config import DataFormat, FormatConfig, is_dest_acc_needed
 from helpers.golden_generators import TILE_DIM
@@ -23,9 +23,9 @@ from helpers.param_config import get_max_dst_index
 # =========================
 @dataclass
 class TileDimensions:
-    input_A_dimensions: Tuple[int, int]
-    input_B_dimensions: Tuple[int, int]
-    output_dimensions: Tuple[int, int]
+    input_A_dimensions: tuple[int, int]
+    input_B_dimensions: tuple[int, int]
+    output_dimensions: tuple[int, int]
     rt_dim: int
     ct_dim: int
     kt_dim: int
@@ -88,7 +88,7 @@ def validate_tile_dimensions(dimension: int, row_col_dim: int):
 
 def generate_matmul_dimension_combinations(
     max_tiles: int, kt_dims: Iterable[int] = range(1, 5)
-) -> List[tuple]:
+) -> list[tuple]:
     """
     Generate valid matmul dimension pairs where result matrix size <= max_tiles.
 
@@ -113,7 +113,7 @@ def generate_matmul_dimension_combinations(
     ]
 
 
-def generate_matmul_tiny_tiles_combinations(max_tiles: int) -> List[tuple]:
+def generate_matmul_tiny_tiles_combinations(max_tiles: int) -> list[tuple]:
     valid_combinations = []
     tile_A_rows = [1, 2, 4, 8, 16]
     tile_A_columns = 32
@@ -146,7 +146,7 @@ def skip_matmul_combination(
 
 
 def generate_tile_dims(
-    dimension: Tuple[list, list], tiny_tiles: bool = False, in0_tile_r_dim: int = 32
+    dimension: tuple[list, list], tiny_tiles: bool = False, in0_tile_r_dim: int = 32
 ) -> TileDimensions:
     num_rows = 32
     num_cols = 32
@@ -195,7 +195,7 @@ def generate_tile_dims(
     )
 
 
-def generate_face_layout_config(num_faces: int) -> List[FaceLayoutConfig]:
+def generate_face_layout_config(num_faces: int) -> list[FaceLayoutConfig]:
     """
     Generate face layout configurations for the specified number of faces.
 
@@ -259,7 +259,7 @@ def generate_face_layout_config(num_faces: int) -> List[FaceLayoutConfig]:
     ]
 
 
-def generate_face_layout_config_sweep(math_matmul: bool) -> List[FaceLayoutConfig]:
+def generate_face_layout_config_sweep(math_matmul: bool) -> list[FaceLayoutConfig]:
     num_faces_list = [4] if math_matmul else [1, 2, 4]
     return [
         config
@@ -274,12 +274,16 @@ def generate_face_layout_config_sweep(math_matmul: bool) -> List[FaceLayoutConfi
 
 
 def sweep_matmul(
-    formats_list: List[FormatConfig],
-    dest_acc_modes: List[DestAccumulation],
-    all_stochastic_modes: List[StochasticRounding] = [StochasticRounding.No],
-    dest_sync_modes: List[DestSync] = [DestSync.Half],
+    formats_list: list[FormatConfig],
+    dest_acc_modes: list[DestAccumulation],
+    all_stochastic_modes: list[StochasticRounding] | None = None,
+    dest_sync_modes: list[DestSync] | None = None,
     math_matmul: bool = False,
-) -> List[MatmulConfig]:
+) -> list[MatmulConfig]:
+    if all_stochastic_modes is None:
+        all_stochastic_modes = [StochasticRounding.No]
+    if dest_sync_modes is None:
+        dest_sync_modes = [DestSync.Half]
     combinations = []
 
     # Cache dimensions to avoid redundant computation
@@ -353,12 +357,16 @@ def sweep_matmul(
 
 
 def sweep_tiny_tiles_matmul(
-    formats_list: List[FormatConfig],
-    dest_acc_modes: List[DestAccumulation],
-    all_stochastic_modes: List[StochasticRounding] = [StochasticRounding.No],
-    dest_sync_modes: List[DestSync] = [DestSync.Half],
+    formats_list: list[FormatConfig],
+    dest_acc_modes: list[DestAccumulation],
+    all_stochastic_modes: list[StochasticRounding] | None = None,
+    dest_sync_modes: list[DestSync] | None = None,
     math_matmul: bool = False,
-) -> List[MatmulConfig]:
+) -> list[MatmulConfig]:
+    if all_stochastic_modes is None:
+        all_stochastic_modes = [StochasticRounding.No]
+    if dest_sync_modes is None:
+        dest_sync_modes = [DestSync.Half]
     combinations = []
 
     configs = []

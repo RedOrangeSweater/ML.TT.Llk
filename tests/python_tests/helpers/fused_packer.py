@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
 import torch
 
@@ -17,7 +17,7 @@ from .llk_params import PerfRunType
 
 
 class Packer:
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_pack.h",
             "llk_pack_common.h",

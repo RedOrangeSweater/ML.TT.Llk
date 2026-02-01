@@ -3,7 +3,7 @@
 
 import inspect
 from itertools import product
-from typing import Any, Iterator, List, Tuple
+from typing import Any, Iterator
 
 import pytest
 from typing_extensions import deprecated
@@ -19,10 +19,10 @@ checked_formats_and_dest_acc = {}
 
 
 def format_combination_sweep(
-    formats: List[DataFormat],
+    formats: list[DataFormat],
     all_same: bool,
     same_src_reg_format: bool = True,
-) -> List[FormatConfig]:
+) -> list[FormatConfig]:
     """
     Generates a list of FormatConfig instances based on the given formats and the 'all_same' flag.
     This is used for pytesting in order to utilize pytest.mark.parametrize to test different format combinations.
@@ -127,7 +127,7 @@ class ResolutionError(Exception):
         super().__init__(f"Constraint function raised an exception: {error}")
 
 
-def _param_dependencies(parameter: str, argument: Any) -> List[str]:
+def _param_dependencies(parameter: str, argument: Any) -> list[str]:
     """Extract parameter names from a callable using introspection."""
     if callable(argument):
         dependencies = inspect.signature(argument).parameters.keys()
@@ -191,7 +191,7 @@ def _find_next_resolvable(matrix: list[list[int]], resolved: list[bool]) -> list
 
 def _compute_resolution_order(
     parameter_names: list[str], dependency_matrix: list[list[int]]
-) -> List[int]:
+) -> list[int]:
     """
     Builds a map of parameters used to resolve the constrained cartesian product
 
@@ -224,7 +224,7 @@ def _compute_resolution_order(
     return topological
 
 
-def _params_solve_dependencies(**kwargs: Any) -> List[Tuple]:
+def _params_solve_dependencies(**kwargs: Any) -> list[tuple]:
     """
     Compute constrained cartesian product by resolving parameter dependencies.
 
@@ -264,7 +264,7 @@ def _params_solve_dependencies(**kwargs: Any) -> List[Tuple]:
 
         return [argument]
 
-    def _solve_recursive(resolved: list[Any], resolution_index: int) -> Iterator[Tuple]:
+    def _solve_recursive(resolved: list[Any], resolution_index: int) -> Iterator[tuple]:
         if resolution_index >= len(resolution_order):
             yield tuple(resolved)
             return
@@ -312,7 +312,7 @@ def parametrize(**kwargs: Any):
 
 
 @deprecated("Try using parametrize or python inbuilt product function")
-def generate_params(**kwargs: Any) -> List[tuple]:
+def generate_params(**kwargs: Any) -> list[tuple]:
     wrap_list = lambda x: [x] if not isinstance(x, list) else x
     arguments = [wrap_list(value) for value in kwargs.values() if value is not None]
 
@@ -320,8 +320,8 @@ def generate_params(**kwargs: Any) -> List[tuple]:
 
 
 def input_output_formats(
-    formats: List[DataFormat], same: bool = False
-) -> List[InputOutputFormat]:
+    formats: list[DataFormat], same: bool = False
+) -> list[InputOutputFormat]:
     """
     Generates a list of InputOutputFormat instances based on the given formats.
     This function is used to create input-output format combinations for testing.
@@ -335,7 +335,7 @@ def input_output_formats(
     return [InputOutputFormat(input, output) for input in formats for output in formats]
 
 
-def generate_combination(formats: List[Tuple[DataFormat]]) -> List[FormatConfig]:
+def generate_combination(formats: list[tuple[DataFormat, ...]]) -> list[FormatConfig]:
     """
     A function that creates a list of FormatConfig objects from a list of DataFormat objects that client wants to test.
     This function is useful for creating a list of FormatConfig objects for testing multiple formats combinations
@@ -378,7 +378,9 @@ def generate_combination(formats: List[Tuple[DataFormat]]) -> List[FormatConfig]
 
 
 def calculate_edgecase_dest_indices(
-    dest_acc: bool, result_tiles: int, dest_sync_modes: List[DestSync] = [DestSync.Half]
+    dest_acc: bool,
+    result_tiles: int,
+    dest_sync_modes: list[DestSync] | None = None,
 ):
     """
     Generate the lowest and highest possible dest index depending on the DestSync mode and whether dest is 32bit or not.
@@ -396,6 +398,8 @@ def calculate_edgecase_dest_indices(
     Returns:
         List of tuples: (dest_sync, dst_index)
     """
+    if dest_sync_modes is None:
+        dest_sync_modes = [DestSync.Half]
 
     combinations = []
 

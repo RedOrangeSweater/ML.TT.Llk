@@ -2,7 +2,6 @@
 # SPDX-FileCopyrightText: © 2025 Tenstorrent AI ULC
 import math
 import struct
-from typing import Optional
 
 import torch
 from helpers.chip_architecture import ChipArchitecture, get_chip_architecture
@@ -1285,7 +1284,7 @@ class UnarySFPUGolden:
         iterations: int = None,
         dest_idx: int = 0,
         fill_const_value: float = 5,
-        reduce_pool: Optional[ReducePool] = None,
+        reduce_pool: ReducePool | None = None,
     ):
         self.data_format = data_format
         self.dest_acc = dest_acc

@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from dataclasses import dataclass
-from typing import List
 
 import pandas as pd
 from helpers.device import (
@@ -36,7 +35,7 @@ class GlobalConfig:
 
 @dataclass
 class FuserConfig:
-    pipeline: List[FusedOperation]
+    pipeline: list[FusedOperation]
     global_config: GlobalConfig
 
     def __post_init__(self):

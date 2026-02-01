@@ -4,7 +4,6 @@
 import math
 from dataclasses import dataclass
 from enum import Enum
-from typing import List, Optional, Tuple
 
 import ml_dtypes
 import numpy as np
@@ -214,8 +213,8 @@ class FormatConfig:
 
     unpack_A_src: DataFormat
     unpack_A_dst: DataFormat
-    unpack_B_src: Optional[DataFormat]
-    unpack_B_dst: Optional[DataFormat]
+    unpack_B_src: DataFormat | None
+    unpack_B_dst: DataFormat | None
     pack_src: DataFormat
     pack_dst: DataFormat
     math: DataFormat
@@ -230,8 +229,8 @@ class FormatConfig:
         same_src_format: bool = True,  # if True, source registers A and B have the same formats, don't need to pass next 2 parameters
         # if our src registers have the same formats, then we only pass 5 formats into the FormatConfig object
         # and we set unpack_B_src and unpack_B_dst the same format as input formats for source register A
-        unpack_B_src: Optional[DataFormat] = None,
-        unpack_B_dst: Optional[DataFormat] = None,
+        unpack_B_src: DataFormat | None = None,
+        unpack_B_dst: DataFormat | None = None,
     ):
 
         self.unpack_A_src = unpack_A_src
@@ -289,7 +288,7 @@ class InputOutputFormat:
         return self.__str__()
 
 
-def create_formats_for_testing(formats: List[Tuple[DataFormat]]) -> List[FormatConfig]:
+def create_formats_for_testing(formats: list[tuple[DataFormat, ...]]) -> list[FormatConfig]:
     """
     A function that creates a list of FormatConfig objects from a list of DataFormat objects that client wants to test.
     This function is useful for creating a list of FormatConfig objects for testing multiple formats combinations

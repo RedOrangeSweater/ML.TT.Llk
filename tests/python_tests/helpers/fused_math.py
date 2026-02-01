@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from typing import TYPE_CHECKING, List, Type
+from typing import TYPE_CHECKING, Type
 
 import torch
 
@@ -50,7 +50,7 @@ class Fpu:
     ) -> torch.Tensor:
         return torch.Tensor()
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return []
 
     def __str__(self) -> str:
@@ -58,7 +58,7 @@ class Fpu:
 
 
 class MatmulFpu(Fpu):
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_math_common.h",
             "llk_math_matmul.h",
@@ -123,7 +123,7 @@ class EltwiseFpu(Fpu):
             )
         self.operation = operation
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_math_common.h",
             "llk_math_eltwise_binary.h",
@@ -184,7 +184,7 @@ class ReduceFpu(Fpu):
         self.operation = operation
         self.pool = pool
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_math_common.h",
             "llk_math_reduce.h",
@@ -277,7 +277,7 @@ class ReduceFpu(Fpu):
 
 
 class DatacopyFpu(Fpu):
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "llk_math_common.h",
             "llk_math_eltwise_unary_datacopy.h",
@@ -376,7 +376,7 @@ class Sfpu:
     ) -> torch.Tensor:
         return tensor
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return []
 
     def __str__(self) -> str:
@@ -402,7 +402,7 @@ class UnarySfpu(Sfpu):
         self.dest_idx = dest_idx
         self.fill_const_value = fill_const_value
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "ckernel_defs.h",
             "ckernel_sfpu.h",
@@ -480,7 +480,7 @@ class BinarySfpu(Sfpu):
         self.dst_index_in1 = dst_index_in1
         self.dst_index_out = dst_index_out
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "ckernel_defs.h",
             "ckernel_sfpu.h",
@@ -563,7 +563,7 @@ class SfpuWhere(Sfpu):
         self.dst_index_in2 = dst_index_in2
         self.dst_index_out = dst_index_out
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         return [
             "ckernel_defs.h",
             "ckernel_sfpu.h",
@@ -610,13 +610,13 @@ class SfpuWhere(Sfpu):
 
 class Math:
     fpu: Fpu
-    sfpu: List[Sfpu]
+    sfpu: list[Sfpu]
 
-    def __init__(self, fpu: Type[Fpu], sfpu: List[Sfpu] = []):
+    def __init__(self, fpu: Type[Fpu], sfpu: list[Sfpu] | None = None):
         self.fpu = fpu
-        self.sfpu = sfpu
+        self.sfpu = sfpu if sfpu is not None else []
 
-    def get_headers(self) -> List[str]:
+    def get_headers(self) -> list[str]:
         headers = set()
 
         headers.update(self.fpu.get_headers())
