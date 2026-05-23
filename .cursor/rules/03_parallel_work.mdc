@@ -6,7 +6,7 @@ alwaysApply: true
 ## Multi-agent / parallel work safety
 
 - Assume multiple agents may modify the repo in parallel.
-- Keep changes minimal and focused; avoid unrelated refactors.
+- Keep changes minimal and focused; avoid unrelated refactors (see [25_karpathy_guidelines.mdc](25_karpathy_guidelines.mdc)).
 - Avoid noisy churn (mass formatting/reserialization/lockfile churn) unless explicitly required.
 - If unrelated changes are present, split them by task/concern and commit separately.
 

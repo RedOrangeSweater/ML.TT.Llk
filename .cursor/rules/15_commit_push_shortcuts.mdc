@@ -11,6 +11,7 @@ When the user says **“пуш” / “push”** the user is explicitly requesti
 
 ### Required behavior
 
+- **Execute directly**: on “коммит”/“пуш”/“commit”/“push”/“commit and push”, run the workflow after inspection (status, diff, log)—stage, commit, and if push was requested, push. **Do not ask for confirmation** (“подтверждаете коммит?”, “запушить?”) and do not suggest commands instead of running them.
 - Follow the repo **Atomic git workflow**: split unrelated work into separate commits.
 - Run safety inspection before committing:
   - `git status`
@@ -19,7 +20,7 @@ When the user says **“пуш” / “push”** the user is explicitly requesti
 - Stage **only** files relevant to the requested change.
 - Use a commit message consistent with recent history.
 - Never push unless the user explicitly asked to push.
-- If user asked “commit and push”, push after successful commit(s).
+- If user asked “commit and push” (or “коммит пуш”), run commit(s) and then push in the same flow without an extra confirmation step.
 
 ### Commit failed due to pre-commit
 

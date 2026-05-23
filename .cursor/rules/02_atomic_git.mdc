@@ -16,7 +16,8 @@ alwaysApply: true
 - After each logically complete step (DoD met):
   - run project checks if configured (tests/linters/hooks). If no checks exist, proceed.
   - if checks fail, do **not** commit/push; fix and rerun checks
-  - then create an atomic commit (single concern, minimal scope)
+  - then create an atomic commit (single concern, minimal scope).
+- When the user has already asked for commit/push, perform the commit (and push if requested) without handing off to the user to run it manually.
 
 ## Push policy
 

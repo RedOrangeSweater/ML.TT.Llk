@@ -1,14 +1,14 @@
 ## /sdlc.newrepo — пустой проект с полной структурой (Apps / Games, Direction, sub‑SDLC)
 
-Один сценарий: определить область (App | Games), создать проект под `_SDLC.template/<area>/<projectName>/`, скопировать template, записать Direction и процесс только в файлы, создать 00_Main и при необходимости sub‑SDLC.
+Один сценарий: определить область (App | Games), создать проект под `_Template.Sdlc/<area>/<projectName>/`, скопировать template, записать Direction и процесс только в файлы, создать 00_Main и при необходимости sub‑SDLC.
 
 Цель: из сообщения пользователя получить общее направление, записать его в Direction; завести структуру папок и документацию процесса (основной SDLC + ссылки на sub‑SDLC, процесс по каждому sub‑SDLC) — **всё только в файлы**, в ответ — краткое подтверждение.
 
 ### Input (опционально)
 
-- **area** — `App` | `Games` (или `Apps` | `Games` — маппинг в папки `Apps`/`Games`). Куда положить новый проект: `_SDLC.template/<Apps|Games>/`. Если не указан — вывести из контекста сообщения (приложение, app, игра, game и т.п.); при невозможности — записать вопрос/предположение в Direction или README в целевом проекте.
-- **projectName** — имя проекта (папка под `_SDLC.template/<area>/`). Если не задано — вывести из контекста или использовать нейтральное (например по дате или «NewProject») и зафиксировать в Direction/README.
-- **target** — путь к корню целевого репо. Если заданы **area** и репо cursorrules: по умолчанию `_SDLC.template/<area>/<projectName>/`.
+- **area** — `App` | `Games` (или `Apps` | `Games` — маппинг в папки `Apps`/`Games`). Куда положить новый проект: `_Template.Sdlc/<Apps|Games>/`. Если не указан — вывести из контекста сообщения (приложение, app, игра, game и т.п.); при невозможности — записать вопрос/предположение в Direction или README в целевом проекте.
+- **projectName** — имя проекта (папка под `_Template.Sdlc/<area>/`). Если не задано — вывести из контекста или использовать нейтральное (например по дате или «NewProject») и зафиксировать в Direction/README.
+- **target** — путь к корню целевого репо. Если заданы **area** и Meta.Projects.Registry: по умолчанию `_Template.Sdlc/<area>/<projectName>/`.
 - **path** — корень SDLC для `/sdlc.main` (по умолчанию `docs/sdlc`).
 - **subProjects** — список под‑проектов для создания сразу (формат как в `/sdlc.main`: через запятую, например `01_Ideas,02_ReleaseGates`). Для каждого при необходимости goal_title/goal_description — из контекста или переданного списка.
 
@@ -17,9 +17,9 @@
 Все действия — **только в файлы**; в ответ пользователю — краткое подтверждение (что создано, куда записано), без объёмного анализа в чат.
 
 1. **Определить area** (App/Apps или Games) из параметра или из контекста сообщения. При отсутствии — записать в созданный позже Direction или README вопрос/предположение; не выводить длинный анализ пользователю.
-2. **Создать при необходимости** `_SDLC.template/Apps/`, `_SDLC.template/Games/`.
-3. **Определить target** = `_SDLC.template/<area>/<projectName>/` (или явно переданный target); создать каталог.
-4. **Скопировать Cursor-артефакты** из `docs/projects/sdlc-lifecycle/` в target: `.cursor/rules/`, `.cursor/commands/`. Если template недоступен (репо не cursorrules) — взять из переданного архива/папки `sdlc-lifecycle` или записать в README инструкцию по ручному копированию.
+2. **Создать при необходимости** `_Template.Sdlc/Apps/`, `_Template.Sdlc/Games/`.
+3. **Определить target** = `_Template.Sdlc/<area>/<projectName>/` (или явно переданный target); создать каталог.
+4. **Скопировать Cursor-артефакты** из `docs/projects/Meta.Template.Sdlc/` в target: `.cursor/rules/`, `.cursor/commands/`. Если template недоступен (репо не Meta.Projects.Registry) — взять из переданного архива/папки `Meta.Template.Sdlc` или записать в README инструкцию по ручному копированию.
 5. **Direction**: из текста сообщения пользователя выделить **общее направление** проекта (1–3 буллета) и записать в целевом проекте в `docs/sdlc/00_Main/00_Status/Direction.md` (предпочтительно) или `docs/Direction.md`; не дублировать большим текстом в ответ.
 6. **В целевом проекте выполнить логику /sdlc.main** (path, subProjects): создать 00_Main, подпапки 00_Status … 04_QA, при необходимости sub‑SDLC и реестр.
 7. **Direction по каждому sub‑SDLC**: из контекста или переданного списка (goal_title/goal_description) записать в `<path>/NN_<name>/README.md` (блок «Цель») или при наличии — в `<path>/NN_<name>/00_Status/Direction.md`; всё в файлы.
@@ -39,4 +39,4 @@
 ### См. также
 
 - `/sdlc.main` — создание/обновление основного SDLC и перечисленных sub‑SDLC (path, subProjects).
-- Template: `docs/projects/sdlc-lifecycle/README.md`, корень проектов: `_SDLC.template/README.md` в репо cursorrules.
+- Template: `docs/projects/Meta.Template.Sdlc/README.md`, продуктовый SDLC: `Meta/Meta.Template.Sdlc/`.

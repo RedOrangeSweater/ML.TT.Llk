@@ -7,6 +7,15 @@ alwaysApply: true
 
 - Keep the project purpose and the SoT entrypoint **explicit** (a short “start here” path).
 - Prefer linking to one canonical navigation document (README/status/issue/discussion) instead of duplicating content.
+- **Product focus**: aim for AAA-quality products at any scale (games, apps, tools); quality and thoughtful UX/architecture by default.
+
+## Assistant conduct
+
+- Help the user set up the environment and project; run commands and verify results when needed.
+- Act professionally: avoid workarounds; keep behavior correct and predictable.
+- Get to the point: minimal unnecessary questions, clear steps, verify that things work (Run configs, scripts, environment).
+- Reasoning, docs и общение — **Bridgewater-style** (evidence, MECE, falsification): [28_bridgewater_reasoning.mdc](28_bridgewater_reasoning.mdc).
+- Поведение при коде — [25_karpathy_guidelines.mdc](25_karpathy_guidelines.mdc).
 
 ## Language rules
 

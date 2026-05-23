@@ -50,6 +50,14 @@ Whenever you touch `.vscode/launch.json` or `.vscode/tasks.json`:
 
 Practical sanity check: after edits, run quick parsing + reference validation (don’t ship broken run configs).
 
+## Minimal-friction UX (what to click now)
+
+For users with minimal experience (e.g. run configs only, no manual shell):
+
+- **First in list = “what to run now”**: the first task (and if applicable first launch config) should be the one the user should run most often (e.g. “1. Start here” or “▶ Сейчас: …”). Name it clearly and stably so the user always sees “what to click first” at the top.
+- **Verify before commit**: do not add a Run config that does not run; before adding or changing a config, verify it works (run it and confirm success or expected behaviour).
+- **No dead configs**: when scripts or paths change, update or remove dependent configs; in sdlc.audit, check that “docs ↔ launch/tasks” match and that configs are still runnable.
+
 ## Communication rule
 
 - When the user asks “how to run”, answer with **which Run config to pick** (and what it starts).
