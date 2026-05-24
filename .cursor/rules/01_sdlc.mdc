@@ -14,22 +14,6 @@ alwaysApply: true
 - If SoT is docs-first: keep a numbered SDLC navigation under `docs/` and keep READMEs up to date.
 - If SoT is GitHub-first: use Issues/Discussions as the executable work surface and keep repo docs as curated “entrypoints”, not duplicated status.
 
-## Negative SDLC (pre-GraphDB) when modeling domains
+## Formal models (project-specific)
 
-If the task requires a GraphDB-formalized domain model intended for later MLIR translation, do not jump straight to GraphDB. Use negative steps first:
-
-- Step -3: intent + boundaries + draft glossary (entities/relations/attributes)
-- Step -2: invariants + minimal schema (types, allowed relations, cardinalities, naming rules)
-- Step -1: operational semantics (ops/transitions/queries + test scenarios)
-- Step 0: GraphDB representation
-
-Reference: `docs/sdlc/00_Main/02_Architecture/04_Negative_SDLC_PreGraphDB.md`.
-
-## Doc→MLIR/GraphDB (KG-first, 00_Main contract)
-
-When documentation targets MLIR/GraphDB, use **KG-first** as canonical format: in KG store only concepts, relations, effects (no phrases). After each logical chunk: **SPARQL query** (structural, no CONTAINS on phrases); **MLIR layers** (sdlc_kg, sdlc_doc_intent); text generated only by LLM from final MLIR. Optionally start new content from **abstract effects/rules/conditions** (in the spirit of Negative SDLC steps -3..-1), then express in KG/MLIR. All 00_Main documentation should be maintainable in GraphDB; see contract in pipeline doc §3.2.
-
-- Pipeline and contract: `docs/sdlc/00_Main/02_Architecture/00_Doc_MLIR_GraphDB_Pipeline.md` (§3, §3.2).
-- Negative SDLC and mapping: `docs/sdlc/00_Main/02_Architecture/04_Negative_SDLC_PreGraphDB.md`.
-- Common SDLC Core §3.0.1: dialect and transformation tracking.
-
+Formal models (Haskell ontology, YAML principle records, typed schemas, etc.) are defined in a **project override** block in this repo's `01_sdlc.mdc` when needed. Reference: `Meta.Dalio.LogicModel` (Haskell + `principles_sot/`). Portfolio **does not** sync KG/MLIR/GraphDB artifacts.

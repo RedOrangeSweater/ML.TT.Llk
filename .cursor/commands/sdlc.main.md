@@ -3,7 +3,7 @@
 Стандартный layout SDLC в этом репо:
 
 - **`docs/sdlc/00_Main/`** — основной SDLC проекта (базовая структура: status → BA → architecture → specs → QA).
-- **`docs/sdlc/01_*`, `docs/sdlc/02_*`, …** — дополнительные sub‑SDLC этого же проекта (например `01_GameIdeas`, `02_MlirDialects`).
+- **`docs/sdlc/01_*`, `docs/sdlc/02_*`, …** — дополнительные sub‑SDLC этого же проекта (например `01_GameIdeas`, `02_ReleaseGates`).
 
 Цель: единый "main SDLC" рядом с независимыми подпроцессами, упорядоченными по номеру (как "main" + "ветки", но на уровне папок).
 
@@ -33,7 +33,7 @@
 
 3. **Пронумеровать существующие sub‑SDLC** (если уже есть папки без префикса NN_):
    - Переименовать `<path>/<name>/` → `<path>/NN_<name>/` (минимальный churn, сохранять смысл имени).
-   - Пример: `game_ideas` → `01_GameIdeas`, `mlir_dialects` → `02_MlirDialects`.
+   - Пример: `game_ideas` → `01_GameIdeas`, `release_gates` → `02_ReleaseGates`.
 
 4. **Навигация и реестр**:
    - Обновить `<path>/README.md`: описать `00_Main` + `NN_*`, убрать устаревшие входные точки.
