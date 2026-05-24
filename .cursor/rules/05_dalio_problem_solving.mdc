@@ -1,0 +1,202 @@
+---
+description: Dalio derived: problem-solving loop and diagnose-before-fix
+alwaysApply: true
+portfolio_common: true
+priority: P2
+  - Work-14-01-b
+  - Work-14-01-c
+source_principles:
+  - Life-01
+  - Life-01-02
+  - Life-01-10
+  - Life-02
+  - Life-02-01
+  - Life-02-01-a
+  - Life-02-01-b
+  - Life-02-01-c
+  - Life-02-01-d
+  - Life-02-01-e
+  - Life-02-01-f
+  - Life-02-01-g-a
+  - Life-02-01-h
+  - Life-02-02
+  - Life-02-02-a
+  - Life-02-02-b
+  - Life-02-02-c
+  - Life-02-02-d
+  - Life-02-02-e
+  - Life-02-02-f
+  - Life-02-03
+  - Life-02-03-a
+  - Life-02-03-b
+  - Life-02-03-c
+  - Life-02-04
+  - Life-02-04-a
+  - Life-02-04-b
+  - Life-02-04-e
+  - Life-02-04-f
+  - Life-02-05
+  - Life-02-06
+  - Life-02-06-b-a
+  - Life-02-06-b-b
+  - Life-03-01-c-b
+  - Life-03-06-c
+  - Life-05-12
+  - Work-01
+  - Work-01-01
+  - Work-01-02
+  - Work-09-05
+  - Work-11
+  - Work-11-01
+  - Work-11-02
+  - Work-11-03
+  - Work-11-04
+  - Work-11-04-a
+  - Work-11-05-a
+  - Work-12
+  - Work-12-01
+  - Work-12-02
+  - Work-12-03
+  - Work-12-06-a
+  - Work-12-08-m
+  - Work-13
+  - Work-13-01
+  - Work-13-02
+  - Work-13-03
+  - Work-13-04
+  - Work-13-05
+  - Work-13-05-c
+  - Work-13-06
+  - Work-13-07
+  - Work-13-08
+  - Work-13-09
+  - Work-13-10
+  - Work-13-11
+  - Work-14
+rule_id:
+  - cursor.problem.solve_as_loop
+  - cursor.problem.diagnose_before_fix
+  - cursor.problem.design_mechanism
+---
+
+# Dalio: problem solving
+
+Derived from `principles_sot/` per [CURSOR_RULE_DERIVATION_ru.md](../../docs/sdlc/00_Main/02_Architecture/CURSOR_RULE_DERIVATION_ru.md).
+
+**Priority:** hard `Prohibition` (P1) and process order (P2) override premature design. MECE/falsification — [28_bridgewater_reasoning.mdc](28_bridgewater_reasoning.mdc); Five Steps order and diagnose-before-fix — здесь.
+
+## cursor.problem.solve_as_loop
+
+**Trigger:** nontrivial problem, recurring bug, or user asks to achieve a complex goal.
+
+**Obligation:**
+
+- State goal, observed reality, named problem, diagnosis, design change, execution step, and verification.
+- Follow Life 2 Five Steps order: `Life-02-01` clarify goal → `Life-02-02` identify problem → `Life-02-03` diagnose root cause → `Life-02-04` design plan → `Life-02-05` execute with owner and metric → verification.
+
+**Prohibition:**
+
+- Do not treat a recurring problem as a one-off patch.
+- Do not mix diagnosis with solution design.
+- Do not propose plan or mechanism (`Life-02-04`) before root-cause diagnosis (`Life-02-03`).
+
+**Required questions (when data is missing):**
+
+- What is the desired outcome?
+- What bad outcome is observed?
+- Is this recurring or one-off?
+
+**Evidence requirement:**
+
+- At least one concrete observation of failure (log, metric, reproducible step).
+- Do not accept euphemism or authority instead of observable reality (`Work-01-01`).
+- Explicit workflow: `/prin.diagnose` when diagnosis needs structured output; `/prin.design` when root cause is known and mechanism change is needed (`Life-02-04`).
+
+**Exit criteria:**
+
+- Verification checks the mechanism or root cause, not only the immediate symptom.
+
+**Fallback:** If the task is trivial (see diagnose rule exception), state why the full loop is skipped.
+
+## cursor.problem.diagnose_before_fix
+
+**Trigger:** user asks to fix a problem, bug, or failure.
+
+**Obligation:**
+
+- Before proposing design or implementation, identify symptom, owner/mechanism hypothesis, and plausible root cause.
+- Produce a short diagnosis section before the plan when the problem is nontrivial.
+
+**Prohibition:**
+
+- Do not jump directly to implementation when root cause is unknown.
+- Do not treat symptom as root cause.
+
+**Required questions:**
+
+- What is the observed bad outcome?
+- What mechanism or owner was responsible?
+- Is this a skill, plan, process, or context failure?
+
+**Evidence requirement:**
+
+- At least one concrete observation before proposing a fix.
+- Classify failure type when applicable: person, role mismatch, or bad mechanism.
+
+**Exit criteria:**
+
+- The proposed action references the diagnosed root cause (or an explicit assumption).
+- Diagnosis names who can block validation (reviewer, security, deploy, manager) when org-dependent.
+
+**Fallback:** Ask one yes/no clarifying question or state the assumption.
+
+### Trivial task exception
+
+**Do not** run heavy diagnosis when:
+
+- the change is localized and reversible (typo, label text, obvious one-liner);
+- there is no recurring failure pattern;
+- root cause is already stated with evidence.
+
+Example: «Поменяй текст кнопки Save на Сохранить» → apply directly.
+
+## cursor.problem.design_mechanism
+
+**Trigger:** root cause is named (or explicit assumption), and user needs plan, process, architecture, or mechanism change — not only a local patch.
+
+**Obligation:**
+
+- Propose a mechanism change that bypasses or eliminates the root cause (`Work-13`, `Work-13-01`).
+- Link plan to diagnosed root cause (`Life-02-04`).
+- Systematize principles for repeatability when needed (`Work-13-02`).
+- Describe plan as scenario: who, what, when, outcomes, owners, metrics (`Work-13-03`).
+- Build iteratively; do not assume perfect system on first pass (`Work-13-04`).
+- Tie mechanism to goals, not task lists alone (`Work-13-05`).
+- Define verification metric for the new mechanism (`Work-13`).
+- Explicit workflow: `/prin.design` when structured mechanism design output is needed.
+
+**Prohibition:**
+
+- Do not design plan or mechanism before root-cause diagnosis (`Life-02-04`).
+- Do not treat recurring problems with one-off patches without a mechanism path.
+- Do not add rules or guides without necessity check (`Work-13-07`).
+
+**Required questions (when data is missing):**
+
+- What mechanism change bypasses or eliminates the root cause?
+- How will we verify the new mechanism works?
+- Is this a durable mechanism change or a temporary workaround?
+
+**Evidence requirement:**
+
+- Named root-cause hypothesis or explicit assumption.
+- Mechanism change linked to root cause.
+- Verification metric or observable success signal.
+
+**Exit criteria:**
+
+- Design references diagnosed root cause (or stated assumption).
+- Plan has owners, metrics, and verification step.
+- Blocker roles named when org-dependent (reviewer, security, deploy, manager, architecture).
+
+**Fallback:** If root cause is unknown, redirect to `/prin.diagnose` before design.

@@ -10,6 +10,7 @@
 
 - **What went wrong**: буллеты (с короткой отсылкой к чату).
 - **Proposed updates**: для каждого файла — точный фрагмент (добавить/заменить). Новое правило — имя файла + полный контент.
+- Для каждого proposed rule/command: указать `source_principles` (PrincipleId) или явно пометить `portfolio_common: true`.
 
 ### Next step
 

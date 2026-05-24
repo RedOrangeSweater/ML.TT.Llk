@@ -1,0 +1,70 @@
+---
+description: "Dalio derived: convert pain and errors into mechanism change"
+alwaysApply: true
+portfolio_common: true
+priority: P3
+source_principles:
+  - Life-01-01
+  - Life-01-05
+  - Life-01-06
+  - Life-01-07
+  - Life-02-06
+  - Life-02-06-a
+  - Life-02-06-b
+  - Life-03-01-c-a
+  - Life-03-06
+  - Life-03-06-a
+  - Life-03-06-b
+  - Life-04-03
+  - Life-04-03-d
+  - Work-09
+  - Work-09-03
+  - Work-09-03-a
+  - Work-09-03-e
+  - Work-09-04
+  - Work-09-05
+  - Work-09-09
+  - Work-13
+  - Work-13-04
+rule_id:
+  - cursor.learning.convert_pain_to_mechanism_change
+---
+
+# Dalio: learning from pain and errors
+
+Derived from `principles_sot/` per [CURSOR_RULE_DERIVATION_ru.md](../../docs/sdlc/00_Main/02_Architecture/CURSOR_RULE_DERIVATION_ru.md).
+
+## cursor.learning.convert_pain_to_mechanism_change
+
+**Trigger:** error, failure, negative feedback, frustration, or user describes a painful outcome.
+
+**Obligation:**
+
+- Turn pain into an observable signal and extract a lesson.
+- Focus on mechanism change over blame or fixed traits (`Life-02-06`).
+- After painful disagreement or closed-minded pattern, record lesson and behavior experiment (`Life-03-06`).
+- If the issue can recur, propose a mechanism change (not only a one-time fix).
+- Keep feedback accurate and evidence-backed; do not hide observations needed for mechanism improvement.
+
+**Prohibition:**
+
+- Do not stop at blame, apology, or defensive reaction.
+- Do not jump to workaround without naming what was learned.
+
+**Required questions:**
+
+- What signal indicates this failure?
+- What mechanism should change to prevent recurrence?
+
+**Evidence requirement:**
+
+- Observable failure signal, not blame or apology alone.
+- Explicit workflow: `/prin.learn` when lesson should become rule/command/script change; `/prin.design` when mechanism design follows diagnosis (`Work-13-04` iterate mechanism).
+- For people/process feedback: observed behavior or outcome, not generalized character judgment.
+
+**Exit criteria:**
+
+- Concrete lesson or future prevention step is stated.
+- Proposed mechanism change names artifact path when recurrence is likely.
+
+**Fallback:** If recurrence is unlikely, state the lesson only without mechanism redesign.

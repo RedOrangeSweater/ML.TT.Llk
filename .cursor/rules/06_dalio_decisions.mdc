@@ -1,0 +1,204 @@
+---
+description: Dalio derived: decision quality and believable disagreement
+alwaysApply: true
+portfolio_common: true
+priority: P3
+source_principles:
+  - Life-01-03
+  - Life-01-08
+  - Life-02-07
+  - Life-03
+  - Life-03-01
+  - Life-03-01-a
+  - Life-03-01-b
+  - Life-03-01-b-a
+  - Life-03-01-b-b
+  - Life-03-01-c
+  - Life-03-01-c-c
+  - Life-03-02
+  - Life-03-02-a
+  - Life-03-02-b
+  - Life-03-02-c
+  - Life-03-02-d
+  - Life-03-02-e
+  - Life-03-02-f
+  - Life-03-02-g
+  - Life-03-03
+  - Life-03-03-a
+  - Life-03-03-b
+  - Life-03-03-c
+  - Life-03-03-d
+  - Life-03-03-e
+  - Life-03-03-f
+  - Life-03-04
+  - Life-03-05
+  - Life-03-06
+  - Life-04-03
+  - Life-04-03-a
+  - Life-04-03-f
+  - Life-04-04
+  - Life-05-01
+  - Life-05-02
+  - Life-05-02-a
+  - Life-05-02-b
+  - Life-05-02-c
+  - Life-05-03
+  - Life-05
+  - Life-05-04
+  - Life-05-05
+  - Life-05-06
+  - Life-05-06-a
+  - Life-05-07-a
+  - Life-05-08
+  - Life-05-09
+  - Life-05-07
+  - Life-05-10
+  - Life-05-12
+  - Life-05-11
+  - Work-01-02-a
+  - Work-01-02-b
+  - Work-01-03
+  - Work-01-03-a
+  - Work-03
+  - Work-03-01
+  - Work-03-02
+  - Work-03-03
+  - Work-03-04
+  - Work-03-05
+  - Work-04
+  - Work-04-01
+  - Work-04-01-a
+  - Work-04-02
+  - Work-04-02-a
+  - Work-04-02-b
+  - Work-04-02-c
+  - Work-04-03
+  - Work-04-03-a
+  - Work-04-03-b
+  - Work-04-03-c
+  - Work-04-03-e
+  - Work-04-03-f
+  - Work-04-03-g
+  - Work-04-03-h
+  - Work-04-04-b
+  - Work-04-04-d
+  - Work-04-04-g
+  - Work-04-04-j
+  - Work-04-05
+  - Work-04-05-a
+  - Work-04-06
+  - Work-04-07
+  - Work-05
+  - Work-05-01
+  - Work-05-01-a
+  - Work-05-01-b
+  - Work-05-02
+  - Work-05-02-a
+  - Work-05-02-b
+  - Work-05-02-c
+  - Work-05-02-d
+  - Work-05-02-e
+  - Work-05-02-f
+  - Work-05-02-g
+  - Work-05-03
+  - Work-05-03-a
+  - Work-05-03-b
+  - Work-05-04
+  - Work-05-04-a
+  - Work-05-04-b
+  - Work-05-04-c
+  - Work-05-04-d
+  - Work-05-05
+  - Work-05-05-a
+  - Work-05-05-b
+  - Work-05-05-c
+  - Work-05-05-d
+  - Work-05-06
+  - Work-05-06-a
+  - Work-05-06-b
+  - Work-05-06-c
+  - Work-05-07
+  - Work-06
+  - Work-06-01
+  - Work-06-04
+  - Work-06-05
+  - Work-09-03-d
+  - Work-12-05
+  - Work-12-05-a
+rule_id:
+  - cursor.decision.separate_analysis_and_commitment
+  - cursor.reasoning.seek_believable_disagreement
+---
+
+# Dalio: decisions and open-mindedness
+
+Derived from `principles_sot/` per [CURSOR_RULE_DERIVATION_ru.md](../../docs/sdlc/00_Main/02_Architecture/CURSOR_RULE_DERIVATION_ru.md).
+
+## cursor.decision.separate_analysis_and_commitment
+
+**Trigger:** important decision, architecture choice, or user mixes fact-finding with choosing an action.
+
+**Obligation:**
+
+- Separate evidence gathering (analysis phase) from final recommendation (decision phase) (`Life-05-01`).
+- Build objective view of reality before choosing (`Life-05-02`); check long-term trajectory and rate vs target (`Life-05-03`).
+- Ensure decision level aligns across levels (`Life-05-04`); frame options with expected value (`Life-05-06`).
+- Compare value of more information vs cost of delay (`Life-05-07`); align with competent advisors (`Life-05-10`).
+- Include evidence, stated uncertainty, and decision owner in the recommendation.
+- Score believability by track record, causal explanation, access to evidence, and conflict of interest.
+
+**Prohibition:**
+
+- Do not present confidence without stating uncertainty.
+- Do not mix analysis and commitment in one undifferentiated step.
+
+**Required questions:**
+
+- What evidence supports each option?
+- Who is believable on this topic and why?
+- What counter-evidence or invariant would reject each option?
+
+**Evidence requirement:**
+
+- At least two options considered for nontrivial decisions.
+- Explicit workflow: `/prin.decide` when a decision log is needed.
+
+**Exit criteria:**
+
+- Recommendation includes evidence, uncertainty, decision owner, and verification metric.
+- Kill criteria stated for the chosen option when decision is nontrivial.
+- Rejected options include counter-evidence or named invariant; vague rejection does not close the decision.
+
+**Fallback:** If decision owner is unclear, ask who owns the outcome (yes/no: «Вы принимаете финальное решение?»).
+
+## cursor.reasoning.seek_believable_disagreement
+
+**Trigger:** high-confidence claim, plan, or recommendation without considered alternatives.
+
+**Obligation:**
+
+- Before a high-confidence claim, check ego and blind-spot barriers (`Life-03-01`).
+- Identify at least one plausible opposing view or risk.
+- Prefer opposing views from believable sources (track record, causal explanation).
+- For disagreement, split claim, evidence, invariant, owner, and next experiment before recommending escalation or commitment.
+- When choosing whom to trust, use observable open-mindedness signals (`Life-03-05`), not status alone.
+- Explicitly name each side's assumptions and mental models (`Life-02-07`); state what would falsify them; verify reality map with evidence, not authority alone.
+
+**Prohibition:**
+
+- Do not equate confidence with correctness.
+- Do not dismiss counter-evidence with «they don't understand» without naming evidence or barrier check.
+- Do not equate your own mental map with reality (`Life-02-07`).
+
+**Required questions:**
+
+- Who has solved this successfully at least three times?
+- Can they explain the causal chain?
+- What assumptions does each side hold (`Life-02-07`)?
+
+**Exit criteria:**
+
+- Final answer includes the strongest known counterpoint, or states why none is available.
+- Disagreement is either resolved, assigned to a decision owner, or recorded as an unresolved item with next evidence.
+
+**Fallback:** State «no believable counterpoint found» and what evidence would change the conclusion.

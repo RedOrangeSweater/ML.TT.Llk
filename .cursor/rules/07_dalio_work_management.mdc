@@ -1,0 +1,172 @@
+---
+description: Dalio derived: ownership, metrics, and governance
+alwaysApply: true
+portfolio_common: true
+priority: P2
+source_principles:
+  - Life-01-07
+  - Life-01-09
+  - Life-02-01-g
+  - Life-02-01-g-b
+  - Life-02-04-d
+  - Life-02-05
+  - Life-02-05-a
+  - Life-02-05-b
+  - Life-02-05-c
+  - Life-04-01
+  - Life-04-02
+  - Life-04-04
+  - Life-04-04-e
+  - Life-04-05
+  - Work-01-04
+  - Work-02
+  - Work-02-01
+  - Work-02-02
+  - Work-02-03
+  - Work-02-04
+  - Work-02-05
+  - Work-04-03-d
+  - Work-04-04
+  - Work-04-04-a
+  - Work-04-04-f
+  - Work-04-04-h
+  - Work-04-04-k
+  - Work-05-05
+  - Work-06-06
+  - Work-07
+  - Work-07-01
+  - Work-07-01-a
+  - Work-07-02
+  - Work-07-02-a
+  - Work-07-03
+  - Work-08
+  - Work-08-01
+  - Work-08-01-e
+  - Work-08-03
+  - Work-08-05
+  - Work-08-06
+  - Work-08-08
+  - Work-09-01
+  - Work-09-01-a
+  - Work-09-01-c
+  - Work-09-02
+  - Work-09-07
+  - Work-09-09
+  - Work-10
+  - Work-10-01
+  - Work-10-01-a
+  - Work-10-02
+  - Work-10-03
+  - Work-10-04
+  - Work-10-04-a
+  - Work-10-05
+  - Work-10-05-a
+  - Work-10-06
+  - Work-10-07
+  - Work-10-08
+  - Work-10-09
+  - Work-10-10
+  - Work-10-11
+  - Work-10-12
+  - Work-10-13
+  - Work-11-04-b
+  - Work-12-08-l
+  - Work-13-10-a
+  - Work-14
+  - Work-14-01
+  - Work-14-01-a
+  - Work-14-02
+  - Work-14-03
+  - Work-14-03-a
+  - Work-14-04
+  - Work-14-05
+  - Work-15-01
+  - Work-15-01-a
+  - Work-16
+  - Work-16-01
+  - Work-16-01-a
+  - Work-16-01-b
+  - Work-16-01-d
+  - Work-16-01-e
+  - Work-16-02
+  - Work-16-03
+rule_id:
+  - cursor.work.assign_owner_and_metric
+  - cursor.management.check_governance_before_scaling
+---
+
+# Dalio: work management and governance
+
+Derived from `principles_sot/` per [CURSOR_RULE_DERIVATION_ru.md](../../docs/sdlc/00_Main/02_Architecture/CURSOR_RULE_DERIVATION_ru.md).
+
+## cursor.work.assign_owner_and_metric
+
+**Trigger:** plan or task creation; decision is accepted and needs execution.
+
+**Obligation:**
+
+- State owner, expected outcome, and verification metric.
+- After decision is accepted, move to execution with next action (`Life-02-05`); do not reopen debate without new evidence.
+- Translate decision into tasks with accountability.
+- If another role can block the outcome, name blocker owner and escalation owner before execution.
+- Dual purpose on execution: advance goal and teach/verify mechanism (`Work-10-02`); teach-to-fish over doing-for (`Work-09-01-c`).
+- Continuously test mechanism: expected vs observed behavior; block further decisions if understanding is insufficient (`Work-10-06`).
+- Execution follow-through (`Work-14`): link work to inspiring goal (`Work-14-01`); prioritize under overload (`Work-14-02`); use checklists for repeatable steps (`Work-14-03`); plan sustainable rest (`Work-14-04`); acknowledge completed milestones (`Work-14-05`).
+
+**Prohibition:**
+
+- Do not leave owner implicit.
+- Do not continue debating after decision is made (move to execution).
+- Do not present a plan as executable when required authority, approval, or blocker owner is unknown.
+- Do not sacrifice mechanism learning for immediate outcome only (`Work-10-02`).
+- Do not replace teaching with micromanagement (`Work-09-01-c`).
+
+**Required questions:**
+
+- Who is responsible?
+- How will we know it worked?
+- What should the mechanism do vs what do we observe (`Work-10-06`)?
+
+**Evidence requirement:**
+
+- Named owner and measurable verification metric before execution starts.
+- For org-dependent work: explicit authority check and blocker map.
+
+**Exit criteria:**
+
+- Plan has owner and measurable verification.
+
+**Fallback:** If owner unknown, propose a default owner based on scope and ask yes/no to confirm.
+
+## cursor.management.check_governance_before_scaling
+
+**Trigger:** decision depends on people, roles, responsibility, or organizational mechanism.
+
+**Obligation:**
+
+- Check governance: who decides, who executes, who escalates.
+- Verify people have information, authority, and responsibility for the mechanism.
+- Build an escalation path when validation is blocked or the current owner cannot decide.
+
+**Prohibition:**
+
+- Do not rely only on individual heroics when a governance mechanism is required.
+
+**Required questions:**
+
+- Is there a clear escalation path?
+- Does the responsible party have authority and information?
+
+**Evidence requirement:**
+
+- Named decision owner, executors, and escalation path when org-dependent.
+- Explicit workflow: `/prin.governance` for stakeholder/blocker map.
+- Use `/prin.escalate` when the blocker repeats without new evidence or requires higher authority.
+
+**Exit criteria:**
+
+- Governance check is explicit, or scope is limited to a single-agent task with no org dependency.
+- Blocker roles identified when deploy, security, or cross-team approval may apply.
+- Escalation request includes blocker, evidence, requested decision, owner, and success metric when the current owner lacks authority.
+
+**Fallback:** Mark governance as «not applicable» only for solo technical edits with no delegation.
